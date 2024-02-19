@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>2much_tech - Pure CSS - Holographic Death Star</title>
+    <style>
+      :root {
+  --height: 300px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background-image: radial-gradient(circle, transparent calc(var(--height) * 1.05), #121212 100%), linear-gradient(#121212 calc(50vh + var(--height) * 0.7) calc(50vh + var(--height) * 0.7), #121212 calc(50vh + var(--height) * 0.7) calc(53vh + var(--height) * 0.7), #121212 100vh);
+}
+
+.star-container {
+  height: var(--height);
+  width: var(--height);
+  position: relative;
+  border-radius: 50%;
+  background-color: #4ce1ed;
+  overflow: hidden;
+  box-shadow: 0 0 calc(0.03 * var(--height)) #4ce1ed;
+  opacity: 0.5;
+  filter: brightness(1.3) saturate(3);
+  -webkit-mask-image: repeating-linear-gradient(90deg, transparent, #000 4px), repeating-linear-gradient(90deg, transparent, #0004 2px);
+          mask-image: repeating-linear-gradient(90deg, transparent, #000 4px), repeating-linear-gradient(90deg, transparent, #0004 2px);
+  -webkit-animation: floating 3s linear infinite alternate;
+          animation: floating 3s linear infinite alternate;
+}
+.star-container::after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-image: radial-gradient(circle at 70% 40%, #fff3 30%, transparent 50%, #0006 70%);
+  box-shadow: inset calc(-0.03 * var(--height)) calc(-0.02 * var(--height)) calc(0.06 * var(--height)) #0009, inset 0 calc(-0.01 * var(--height)) 1px #fff6;
+}
+.star-container::before {
+  content: "";
+  height: 10%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(#0000, #92f4fb44 30%, #8fcdd744 50%, #92f4fb44 70%, #0000 100%);
+  box-shadow: 0 0 10px #0000;
+  z-index: 3;
+  -webkit-animation: hologram-fail 7s ease-in-out infinite alternate;
+          animation: hologram-fail 7s ease-in-out infinite alternate;
+}
+.star-container .deadth-star {
+  height: var(--height);
+  width: calc(var(--height) * 4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: rotate 6s linear infinite;
+          animation: rotate 6s linear infinite;
+}
+.star-container .deadth-star .row {
+  display: flex;
+  width: 100%;
+  margin-top: 0.25%;
+  filter: drop-shadow(0 0 calc(var(--height) * 0.007) #000);
+}
+.star-container .deadth-star .row .panel.x2 {
+  flex-grow: 2;
+}
+.star-container .deadth-star .row .panel.x3 {
+  flex-grow: 3;
+}
+.star-container .deadth-star .row .panel.x4 {
+  flex-grow: 4;
+}
+.star-container .deadth-star .row .panel.x5 {
+  flex-grow: 5;
+}
+.star-container .deadth-star .row .panel {
+  height: 100%;
+  width: 1%;
+  background-color: #4ce1ed;
+  margin-left: 0.25%;
+  flex-grow: 1;
+  background-image: linear-gradient(var(--direction, to bottom), #0007, #0000), conic-gradient(#0006 23%, #0000 25% 47%, #0006 50% 73%, #0000 75%);
+  background-size: auto, 4px 8px;
+}
+.star-container .deadth-star .row .panel:nth-child(1) {
+  margin-left: 0;
+}
+.star-container .deadth-star .row:nth-child(1) {
+  margin-top: 0;
+  height: 8%;
+}
+.star-container .deadth-star .row:nth-child(2) {
+  height: 12%;
+}
+.star-container .deadth-star .row:nth-child(3) {
+  height: 15%;
+}
+.star-container .deadth-star .row:nth-child(4) {
+  height: 10%;
+}
+.star-container .deadth-star .row:nth-child(5) {
+  height: 2%;
+  margin-top: 0.5%;
+}
+.star-container .deadth-star .row:nth-child(5) .panel {
+  background-image: linear-gradient(transparent, #0009, transparent);
+}
+.star-container .deadth-star .row:nth-child(6) {
+  margin-top: 0.5%;
+  height: 9%;
+  --direction: to top;
+}
+.star-container .deadth-star .row:nth-child(7) {
+  height: 6%;
+  --direction: to top;
+}
+.star-container .deadth-star .row:nth-child(8) {
+  height: 13%;
+  margin-right: 0;
+  --direction: to top;
+}
+.star-container .deadth-star .row:nth-child(9) {
+  height: 16%;
+  --direction: to top;
+}
+.star-container .deadth-star .laser {
+  height: 30%;
+  width: 7%;
+  position: absolute;
+  top: 14%;
+  left: 30%;
+  background-color: #4ce1ed;
+  border-radius: 50%;
+  transform: rotate(15deg);
+  background-image: radial-gradient(#0009 10%, transparent 11% 19%, #0009 20%, transparent 21% 24%, #0009 25%, transparent 26% 32%, #0009 33%, transparent 34% 59%, #0009 60%, transparent 61% 69%, #0009 70%), repeating-conic-gradient(#0009 1deg, transparent 4deg 16deg), radial-gradient(circle at -50% 50%, #fff3 40%, #0008 70%);
+}
+@-webkit-keyframes floating {
+  from {
+    transform: translatey(5%);
+  }
+  to {
+    transform: translatey(10%);
+  }
+}
+@keyframes floating {
+  from {
+    transform: translatey(5%);
+  }
+  to {
+    transform: translatey(10%);
+  }
+}
+@-webkit-keyframes rotate {
+  from {
+    transform: translatex(0);
+  }
+  to {
+    transform: translatex(-50%);
+  }
+}
+@keyframes rotate {
+  from {
+    transform: translatex(0);
+  }
+  to {
+    transform: translatex(-50%);
+  }
+}
+@-webkit-keyframes hologram-fail {
+  to {
+    transform: translatey(calc(var(--height) * -1));
+  }
+}
+@keyframes hologram-fail {
+  to {
+    transform: translatey(calc(var(--height) * -1));
+  }
+}
+
+.base {
+  whidht: calc(var(--height) * 1.2);
+  height: calc(var(--height) * 0.3);
+  transform: translatey(65%);
+  position: relative;
+}
+.base .top {
+  width: 100%;
+  height: 60%;
+  background-color: #38393d;
+  background-image: conic-gradient(at 50% 10%, #0000 70deg, #fff4 180deg, #0000 290deg);
+  border-radius: 50%;
+  border: calc(var(--height) * 0.01) solid #434449;
+  box-sizing: border-box;
+}
+.base .top .light {
+  width: calc(var(--height) * 1);
+  height: calc(var(--height) * 1);
+  position: absolute;
+  top: -150%;
+  border-radius: 50% 50% 0 0;
+  -webkit-clip-path: polygon(-5% 0, 105% 0, 50% 48%);
+          clip-path: polygon(-5% 0, 105% 0, 50% 48%);
+  -webkit-mask-image: radial-gradient(#000, #0000 20%), repeating-radial-gradient(#0000 1px, #000 2px);
+          mask-image: radial-gradient(#000, #0000 20%), repeating-radial-gradient(#0000 1px, #000 2px);
+}
+.base .top .light::before {
+  content: "";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  background-image: repeating-conic-gradient(#0000 1deg, #4ce1ed 3deg, #0000 6deg 7deg);
+  -webkit-mask-image: radial-gradient(#0009, #0000 40%);
+          mask-image: radial-gradient(#0009, #0000 40%);
+  -webkit-animation: hologram 10s linear infinite;
+          animation: hologram 10s linear infinite;
+}
+.base .top::before {
+  content: "";
+  width: 80%;
+  height: 60%;
+  background: #434449;
+  box-shadow: 0 0 5px #4ce1ed, 0 -3px 22px #4ce1ed, 0 -3px 22px #4ce1ed inset;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  transform: translatey(-10%);
+}
+.base .top::after {
+  content: "";
+  width: 50%;
+  height: 25%;
+  background: radial-gradient(#4ce1ed77, #0000 90%);
+  box-shadow: 0 0 5px #4ce1ed99, 0 -3px 15px #4ce1ed99, 0 -3px 15px #4ce1ed99 inset;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  -webkit-animation: shadow 3s linear infinite alternate;
+          animation: shadow 3s linear infinite alternate;
+}
+@-webkit-keyframes shadow {
+  from {
+    transform: scale(0.9) translatey(-250%);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1) translatey(-250%);
+    opacity: 1;
+  }
+}
+@keyframes shadow {
+  from {
+    transform: scale(0.9) translatey(-250%);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1) translatey(-250%);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes hologram {
+  to {
+    transform: rotate(-0.5turn);
+  }
+}
+@keyframes hologram {
+  to {
+    transform: rotate(-0.5turn);
+  }
+}
+.base .bottom {
+  whidht: 100%;
+  height: 60%;
+  background-image: linear-gradient(90deg, #38393d 10%, #707072 20% 25%, #171719 40% 70%, #a3abb8 85% 89%, #161419 100%);
+  box-shadow: 0 4px #222, 0 12px 0 -6px #333;
+  border-radius: 0% 0% 50% 50%/0% 0% 50% 50%;
+  position: relative;
+  z-index: -1;
+  transform: translatey(-45%);
+}
+    </style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <div class="star-container">
+      <div class="deadth-star">
+        <div class="row">
+          <div class="panel"></div>
+        </div>
+        <div class="row">
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x5"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x5"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+        </div>
+        <div class="row">
+          <div class="panel"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel x5"></div>
+          <div class="panel x4"></div>
+          <div class="panel"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel x5"></div>
+          <div class="panel x4"></div>
+          <div class="panel"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+        </div>
+        <div class="row">
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x5"></div>
+          <div class="panel"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x5"></div>
+          <div class="panel"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+        </div>
+        <div class="row">
+          <div class="panel"></div>
+        </div>
+        <div class="row">
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+        </div>
+        <div class="row">
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+        </div>
+        <div class="row">
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x5"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel"></div>
+          <div class="panel x3"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x3"></div>
+          <div class="panel x5"></div>
+          <div class="panel x3"></div>
+          <div class="panel x4"></div>
+          <div class="panel x2"></div>
+          <div class="panel x2"></div>
+          <div class="panel x3"></div>
+          <div class="panel"></div>
+        </div>
+        <div class="row">
+          <div class="panel"></div>
+        </div>
+        <div class="laser"></div>
+      </div>
+  </div>
+  <div class="base">
+    <div class="top">
+      <div class="light"></div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+</div>
+<!-- partial -->
+  
+</body>
+</html>

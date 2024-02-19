@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>2much_tech - Sea-Sick Starfish - a 3D CSS-only dodecahedron-based animation</title>
+   <style>body {
+  margin: 0;
+  background: #121212;
+}
+
+#wrapper {
+  display: grid;
+  position: absolute;
+  height: 100vh;
+  height: -webkit-fill-available;
+  width: 100%;
+  background: #011;
+  margin: 0;
+  padding: 0;
+  place-content: center;
+  overflow: hidden;
+  font-size: .33vw;
+}
+
+#play {
+  position: absolute;
+  display: none;
+}
+
+#pressed {
+  position: relative;
+  background: yellow;
+  font-size: 10em;
+  font-family: Arial Black;
+  color: red;
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  transition: transform .3s ease-in-out;
+}
+
+#pressed:hover {
+  transform: scale(1.33);
+}
+
+#play:not(:checked) + #scene *,
+#play:not(:checked) + #scene .arm:before
+{
+animation-play-state: paused;
+}
+
+#play:not(:checked) + #scene #pressed:after {
+  content: '\0025BA';
+}
+
+#pressed:after {
+  content: 'II';
+  position: absolute;
+  padding: 1.25em;
+}
+
+#scene {
+  width: 100em;
+  aspect-ratio: 1;
+  perspective: 100em;
+  position: relative;
+  pointer-events: none;
+}
+
+#scene *:not(#pressed) {
+  transform-style: preserve-3d;
+  position: absolute;
+}
+
+#container, #light, .shoal {
+  inset: 0;
+}
+
+#overlay {
+  transform-style: flat;
+  position: absolute;
+  background: conic-gradient(#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00);
+  inset: 0;
+  mix-blend-mode: hue;
+  pointer-events: none;
+}
+
+#light {
+  background: radial-gradient(#fff 20%, #40fb 25%, #0008 50%,#0000 70%);
+  display: grid;
+  place-items: center;
+}
+
+.shoal {
+  animation: float 32s ease-in-out infinite;
+}
+
+.shoal:nth-child(1) > .anchor {
+  --flip: 0;
+}
+
+.shoal:nth-child(2) > .anchor {
+  --flip: 1;
+}
+
+.shoal:nth-child(2) {
+  animation-delay: -.5s;
+}
+
+@keyframes float {
+  0%, 33.33%, 66.66%, 100% {
+    transform: rotateY(0deg) rotateX(0deg) rotate(0deg);
+  }
+  16.66% {
+    transform: rotateY(180deg) rotateX(0deg) rotate(0deg);
+  }
+  50% {
+    transform: rotateY(0deg) rotateX(0deg) rotate(180deg);
+  }
+  83.33% {
+    transform: rotateY(0deg) rotateX(180deg) rotate(0deg);
+  }
+}
+
+.anchor {
+  inset: 30%;
+  display: grid;
+  animation: twirl 32s ease-in-out infinite;
+  animation-delay: calc(var(--nStar)*-.2s);
+}
+
+@keyframes twirl {
+  0%, 25%, 50%, 75%, 100% {
+    transform: rotateY(var(--turn)) rotateZ(var(--incline)) translateY(-50em) rotateY(0deg) rotateX(0deg) scaleY(.25);
+  }
+  12.5% {
+    transform: rotateY(var(--turn)) rotateZ(var(--incline)) translateY(-50em) rotateY(-360deg) rotateX(0deg) scaleY(.25);
+  }
+  37.5% {
+    transform: rotateY(var(--turn)) rotateZ(var(--incline)) translateY(-50em) rotateY(0deg) rotateX(-360deg) scaleY(.25);
+  }
+  62.5% {
+    transform: rotateY(var(--turn)) rotateZ(var(--incline)) translateY(-30em) rotateY(0deg) rotateX(0deg) scaleY(-.5);
+  }
+
+  66.66% {
+    transform: rotateY(var(--turn)) rotateZ(var(--incline)) translateY(-30em) rotateY(0deg) rotateX(0deg) scaleY(-.25);
+  }
+  70.33% {
+    transform: rotateY(var(--turn)) rotateZ(var(--incline)) translateY(-30em) rotateY(0deg) rotateX(0deg) scaleY(.66);
+  }
+}
+
+.anchor:nth-child(1) {
+  --nStar: 1;
+  --turn: 0;
+  --incline: calc(180deg - var(--flip)*180deg);  
+}
+
+.anchor:not(:nth-child(1)) {
+  --turn: calc(var(--nStar)*72deg + 36deg);
+  --incline: calc(63.434948822922deg + var(--flip)*180deg);
+}
+
+.anchor:nth-child(2) {
+  --nStar: 2;
+}
+
+.anchor:nth-child(3) {
+  --nStar: 3;
+}
+
+.anchor:nth-child(4) {
+  --nStar: 4;
+}
+
+.anchor:nth-child(5) {
+  --nStar: 5;
+}
+
+.anchor:nth-child(6) {
+  --nStar: 6;
+}
+
+.star {
+  inset: 0;
+  background: gray;
+  border-radius: 50%;
+  transform: rotateX(90deg);
+  background: hsl( calc(var(--nStar)*60deg) 100% 50%);
+}
+
+.arm {
+  height: 50.903696045513%;
+  width: 29.389262614624%;
+  justify-self: center;
+  top: calc(50% - 30.901699437495%);
+  left:50%;
+  clip-path:polygon(0 0, 0 100%, 100% 100%);
+  transform-origin: 0% 0;
+  transform: scaleX(var(--mirror)) rotatey(calc(var(--nArm)*72deg)) rotateX(51.527433093281deg);
+}
+
+.arm:before {
+  position: absolute;
+  background: linear-gradient(#f00 6%,#000 6% 18%,#ff0 18% 24%,#000 24% 36%,#0f0 36% 42%,#000 42% 54%,#0ff 54% 60%,#000 60% 72%,#00f 72% 78%,#000 78% 90%,#f0f 90% 100%);
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-repeat: repeat;
+    background-size: auto;
+  inset: 0;
+  content: '';
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform: skewY(30deg);
+  transform-origin: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-size: 200% 100%;
+}
+
+.anchor:nth-child(2n) .arm:before {
+  animation: switch 32s ease-in-out infinite;
+}
+
+.anchor:nth-child(2n+1) .arm:before {
+  animation: pulse 32s ease-in-out infinite;
+}
+
+.anchor .arm:before {
+  animation-delay: calc(var(--nStar)*-.2s);;
+}
+
+
+@keyframes switch {
+  0%, 66.66%, 100% {
+    transform: skewY(30deg);
+    transform-origin: 100% 0;
+  }
+  72.11%,94.5% {
+    transform: skewY(0deg);
+    transform-origin: 100% 0;
+  }
+  72.111%, 94.499% {
+    transform: skewY(0deg);
+    transform-origin: 0% 0;
+  }
+  83.11% {
+    transform: skewY(-70deg);
+    transform-origin: 0% 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 80% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(1080deg);
+  }
+} 
+
+
+.arm:nth-child(2n) {
+  --mirror: 1;
+}
+
+.arm:nth-child(2n+1) {
+  --mirror: -1;
+}
+
+.arm:nth-child(1),.arm:nth-child(2) {
+  --nArm: 1;
+}
+
+.arm:nth-child(3),.arm:nth-child(4) {
+  --nArm: 2;
+}
+
+.arm:nth-child(5),.arm:nth-child(6) {
+  --nArm: 3;
+}
+
+.arm:nth-child(7),.arm:nth-child(8) {
+  --nArm: 4;
+}
+
+.arm:nth-child(9),.arm:nth-child(10) {
+  --nArm: 5;
+}
+
+@keyframes flip {
+  100% {
+  transform: scaleY(-1);
+  }
+}
+
+@media (orientation: portrait) {
+
+  #scene {
+    font-size: .33vh;
+  }
+
+}</style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="wrapper">
+
+<input id="play" type="checkbox" name="click">
+
+<div id="scene">
+  <div id="container">
+    <div class="shoal">
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+    </div>
+    <div class="shoal">
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>
+      <div class="anchor">
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+        <div class="arm"></div>
+      </div>   
+    </div>
+    <div id="light">
+    <label id="pressed" for="play"></label>
+    </div> 
+  </div>
+</div>
+<div id="overlay"></div>
+</div>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
